@@ -4,7 +4,7 @@ import jax
 import jax.numpy as jnp
 import neural_tangents as nt
 import numpy as np
-from jax.tree_util import tree_leaves, tree_map, tree_multimap
+from jax.tree_util import tree_leaves, tree_map
 from scipy.sparse.linalg import eigsh
 
 from neural_kernels.utils import flatten_kernel
@@ -129,7 +129,7 @@ def get_ntk_alignment_fn(model, variables, batch_size, eig_batch_size=-1):
                     vjp = ntk_alignment(data[batch], batch_labels[:, batch, :], params)
                 else:
                     vjp_ = ntk_alignment(data[batch], batch_labels[:, batch, :], params)
-                    vjp = tree_multimap(lambda p1, p2: p1 + p2, vjp_, vjp)
+                    vjp = tree_map(lambda p1, p2: p1 + p2, vjp_, vjp)
 
             array_energies = [vec_weight_energy(p) for p in tree_leaves(vjp)]
             vec_alignment = jnp.sum(jnp.array(array_energies), axis=0)

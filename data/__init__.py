@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from .utils import normalize_data
 
 
-def get_dataset(dataset, normalize=False, data_dir=None):
+def get_dataset(dataset, num_train, num_test, normalize=False, data_dir=None):
     """Load dataset train and test datasets into memory."""
     ds_builder = tfds.builder(dataset, data_dir=data_dir)
     ds_builder.download_and_prepare()
@@ -19,7 +19,7 @@ def get_dataset(dataset, normalize=False, data_dir=None):
     if normalize:
         train_data, mean, std = normalize_data(train_data)
 
-    train_ds = {"data": train_data, "labels": train_labels}
+    train_ds = {"data": train_data[:num_train], "labels": train_labels[num_train]}
 
     test_data, test_labels = tfds.as_numpy(
         ds_builder.as_dataset(split="test", batch_size=-1, as_supervised=True)
@@ -28,7 +28,7 @@ def get_dataset(dataset, normalize=False, data_dir=None):
     if normalize:
         test_data, _, _ = normalize_data(test_data, mean, std)
 
-    test_ds = {"data": test_data, "labels": test_labels}
+    test_ds = {"data": test_data[:num_test], "labels": test_labels[:num_test]}
 
     return train_ds, test_ds
 

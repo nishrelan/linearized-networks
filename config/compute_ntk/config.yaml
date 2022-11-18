@@ -1,7 +1,7 @@
 seed: 42
 ntk:
   nystrom_dims: null
-  num_eigvecs: 1000
+  num_eigvecs: 100
 
 # Support for config groups
 defaults:

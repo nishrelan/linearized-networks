@@ -1,6 +1,6 @@
 # @package _global_
 # Not actually building dataset. The num_train/num_test fields probably shouldn't be here,
-# 
+# num_train/num_test fields here need to be in sync with the ones in the corresponding yaml file under compute_ntk folder
 data:
     dataset: "cifar10"
     normalize: True

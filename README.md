@@ -1,14 +1,16 @@
 # What can linearized neural networks *actually* say about generalization?
 
+Nishant's version of this code.
+
 This is the source code to reproduce the experiments of the NeurIPS 2021 paper "[What can linearized neural networks actually say about generalization?](https://arxiv.org/abs/2106.06770)" by Guillermo Ortiz-Jimenez, Seyed-Mohsen Moosavi-Dezfooli and Pascal Frossard.
 
 ## Dependencies
 
 To run the code, please install all its dependencies by running:
-``` sh
+```
 $ pip install -r requirements.txt
 ```
-This assumes that you have access to a Linux machine with an NVIDIA GPU with `CUDA>=11.1`. Otherwise, please check the instructions to install JAX with your setup in the [corresponding repository](https://github.com/google/jax#installation).
+Additionally, Jax is needed to run the code. I took Jax out of requirements because the version you install depends on the target machine. I also got rid of the specific versions of the packages the original authors used. Please install an appropriate version of Jax for your target machine.
 
 In general, all scripts are parameterized using [`hydra`](https://hydra.cc/docs/configure_hydra/intro/) and their configuration files can be found in the `config/` folder.
 
@@ -85,6 +87,7 @@ Finally, you can train a neural network and its linearize approximation on the b
 $ python train_cifar.py model=lenet linearize=False
 ```
 To see the different supported training options, please consult the configuration file `config/binary-cifar/config.yaml`.
+(Note: this script currently does not support training the linearization)
 
 ## Reference
 If you use this code, please cite the following paper:

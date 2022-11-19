@@ -90,7 +90,7 @@ To see the different supported training options, please consult the configuratio
 (Note: this script currently does not support training the linearization)
 
 ## Reference
-If you use this code, please cite the following paper:
+Credit for code. This is a fork of a repo created by the authors listed below.
 
 ``` bibtex
 @InCollection{Ortiz-JimenezNeurIPS2021,

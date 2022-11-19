@@ -1,4 +1,6 @@
 # @package _global_
+# Moved num_train and num_test inside data field in order for the dataset builder
+# function to actually access the fields to build correct dataset size
 data:
     dataset: "cifar10"
     normalize: True

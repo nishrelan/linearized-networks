@@ -1,8 +1,10 @@
 # @package _global_
+# Not actually building dataset. The num_train/num_test fields probably shouldn't be here,
+# 
 data:
     dataset: "cifar10"
     normalize: True
-num_train: 50000
-num_test: 10000
+num_train: 5000
+num_test: 1000
 
 shape: [1, 32, 32, 3]

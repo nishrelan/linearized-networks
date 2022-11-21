@@ -12,6 +12,23 @@ from train.utils import split_batch_indices
 from utils.misc import get_apply_fn, vec_weight_energy
 
 
+def taylorize_model(model, variables_0, degree=1):
+    """Linearize dynamics, i.e., NTK with bias"""
+    model_state, params_0 = variables_0.pop("params")
+
+    original_apply_fn = get_apply_fn(model, expose_bn=False, variables=variables_0, train=False)
+
+    new_apply_fn = nt.taylor_expand(original_apply_fn, params_0, degree=degree)
+
+    def apply_lin_fn(variables, x, train=True, mutable=False):
+        if not train or not mutable:
+            return new_apply_fn(variables["params"], x)
+        else:
+            return new_apply_fn(variables["params"], x), model_state
+
+    return apply_lin_fn
+
+
 def linearize_model(model, variables_0):
     """Linearize dynamics, i.e., NTK with bias"""
     model_state, params_0 = variables_0.pop("params")

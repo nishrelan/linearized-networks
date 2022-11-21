@@ -8,7 +8,7 @@ from flax.serialization import from_state_dict
 from omegaconf import DictConfig, OmegaConf
 
 from models.jax import get_model
-from neural_kernels.ntk import get_ntk_alignment_fn, linearize_model
+from neural_kernels.ntk import get_ntk_alignment_fn, linearize_model, taylorize_model
 from neural_kernels.utils import unflatten_kernel_eigvecs
 from train import sgd_train
 from utils.misc import binarize_eigenfunctions, make_variables, params_mse_dist
@@ -89,7 +89,7 @@ def main(cfg: DictConfig) -> None:
     train_ds, test_ds, model, init_variables, eigvecs = load_dataset_and_model(cfg)
 
     if cfg.linearize:
-        apply_fn = linearize_model(model, init_variables)
+        apply_fn = taylorize_model(model, init_variables, degree=cfg.degree)
     else:
         apply_fn = model.apply
 

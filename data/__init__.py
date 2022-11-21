@@ -19,7 +19,7 @@ def get_dataset(dataset, num_train, num_test, normalize=False, data_dir=None):
     if normalize:
         train_data, mean, std = normalize_data(train_data)
 
-    train_ds = {"data": train_data[:num_train], "labels": train_labels[num_train]}
+    train_ds = {"data": train_data[:num_train], "labels": train_labels[:num_train]}
 
     test_data, test_labels = tfds.as_numpy(
         ds_builder.as_dataset(split="test", batch_size=-1, as_supervised=True)

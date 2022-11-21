@@ -4,7 +4,7 @@
 data:
     dataset: "cifar10"
     normalize: True
-num_train: 5000
-num_test: 1000
+num_train: 500
+num_test: 500
 
 shape: [1, 32, 32, 3]
